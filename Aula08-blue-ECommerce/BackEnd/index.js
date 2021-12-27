@@ -5,8 +5,8 @@ const cors = require("cors");
 // 8°) Importo o arquivo de cenexão para poder acessar a função de
 const Conn = require("./conn/conn");
 
-// °)
-// const gamesRouter = require("./routes/games.routes");
+// 25°) Importa o arquivo de rotas
+const gamesRouter = require("./routes/games.routes");
 
 // 2°) Inicializar o express
 const app = express();
@@ -15,7 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 9°) Chamando a conexão com o banco de dados 
+// 26°)
+app.use("/games", gamesRouter);
+
+// 9°) Chamando a conexão com o banco de dados
 Conn();
 
 // 4°) Definindo a porta e inicialização do servidor
