@@ -30,8 +30,37 @@ const getGameById = async (req, res) => {
   res.send(game);
 };
 
+// 33° & 35°) Função que recebe um objeto via requisição (Front-End) e envia para ser cadastrado no banco de dados
+const createGame = async (req, res) => {
+  const game = req.body;
+
+  if (
+    !game ||
+    !game.nome ||
+    !game.valor ||
+    !game.nota ||
+    !game.lancamento ||
+    !game.plataforma
+  ) {
+    res
+      .status(400)
+      .send({
+        message: "Não foi enviado todos os dados para a criação do game.",
+      });
+  }
+  await gamesService
+    .createGame(game)
+    .then(() => {
+      res.send({ message: "Game criado com sucesso!" });
+    })
+    .catch(() => {
+      res.status(500).send({ message: `Erro no servidor: ${err}` });
+    });
+};
+
 // 19°) Exportar os Módulos
 module.exports = {
   getGames,
   getGameById,
+  createGame,
 };

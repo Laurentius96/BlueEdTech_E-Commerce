@@ -25,4 +25,5 @@ const createGame = async (game) => {
 module.exports = {
   getGames,
   getGameById,
+  createGame,
 };
