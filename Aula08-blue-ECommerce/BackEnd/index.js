@@ -1,4 +1,4 @@
-// 1°) Importa às bobliotecas/libs nedessarias
+// 1°) Importa às bobliotecas/libs necessarias
 const express = require("express");
 const cors = require("cors");
 
@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 26°)
+// 26°) Chamando as rotas
 app.use("/games", gamesRouter);
 
 // 9°) Chamando a conexão com o banco de dados
