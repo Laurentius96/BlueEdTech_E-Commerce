@@ -19,6 +19,7 @@ const gamesModel = new mongoose.Schema({
   plataforma: { type: String, required: true },
   valor: { type: String, required: true },
   lancamento: { type: String, required: true },
+  genero: { type: String, required: true },
   dataCriacao: { type: Date, default: Date.now },
 });
 

@@ -11,10 +11,16 @@ const router = express.Router();
 router.get("/get-games", gamesController.getGames);
 
 // 29°) [GET] /get-game-by-id/{id} - retorna um game de acordo com o seu id
-router.get("/get-game-by-id/:id", gamesController.getGameById)
+router.get("/get-game-by-id/:id", gamesController.getGameById);
 
 // 34°) [POST] /games/add - Cadastra um novo jogo no banco de dados
 router.post("/create", gamesController.createGame);
+
+// 38°) [PUT] /games/edit/{id} - Edita os dados do game de acordo com o id e o objeto recebido
+router.put("/edit/:id", gamesController.updateGame);
+
+// 41°) [DELETE] /games/delete - Exclui um game do banco de dados de acordo com o seu id
+router.delete("/delete/:id", gamesController.deleteGame);
 
 // 24°) Exportanto o módulo de Rotas
 module.exports = router;

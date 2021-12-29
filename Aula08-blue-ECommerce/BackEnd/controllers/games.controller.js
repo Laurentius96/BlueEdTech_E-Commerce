@@ -40,13 +40,12 @@ const createGame = async (req, res) => {
     !game.valor ||
     !game.nota ||
     !game.lancamento ||
-    !game.plataforma
+    !game.plataforma ||
+    !game.genero
   ) {
-    res
-      .status(400)
-      .send({
-        message: "Não foi enviado todos os dados para a criação do game.",
-      });
+    res.status(400).send({
+      message: "Não foi enviado todos os dados para a criação do game.",
+    });
   }
   await gamesService
     .createGame(game)
@@ -58,9 +57,62 @@ const createGame = async (req, res) => {
     });
 };
 
+// 37°)
+const updateGame = async (req, res) => {
+  const id = req.params.id;
+  const gameEdit = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(404).send({ message: "ID inválido!" });
+  }
+
+  if (
+    !gameEdit ||
+    !gameEdit.nome ||
+    !gameEdit.valor ||
+    !gameEdit.nota ||
+    !gameEdit.lancamento ||
+    !gameEdit.plataforma ||
+    !gameEdit.genero
+  ) {
+    res.status(400).send({
+      message: "Não foi enviado todos os dados para a edição do game.",
+    });
+  }
+
+  await gamesService
+    .updateGame(id, gameEdit)
+    .then(() => {
+      res.send({ message: "Game editado com sucesso!" });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: `Erro no servidor: ${err}` });
+    });
+};
+
+// 40°) Recebe um id via parametro da requiscao e envia para o servico para ser excluido do banco de dados
+const deleteGame = async (req, res) => {
+  const id = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(404).send({ message: "ID inválido!" });
+  }
+
+  await gamesService
+    .deleteGame(id)
+    .then(() => {
+      res.send({ message: "Game deletado com sucesso!" });
+    })
+    .catch((err) => {
+      res.status(500).sen({ message: `Erro no servidor:${err}` });
+    });
+};
+
 // 19°) Exportar os Módulos
 module.exports = {
   getGames,
   getGameById,
   createGame,
+  updateGame,
+  deleteGame,
 };
